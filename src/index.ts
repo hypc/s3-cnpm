@@ -3,13 +3,13 @@ import * as path from 'path'
 import ReadableStream = NodeJS.ReadableStream
 import { S3 } from 'aws-sdk'
 
-interface S3Config {
+export interface S3Config {
   mode: 'public' | 'private'
   accessKeyId: string
   secretAccessKey: string
+  endpoint: string
   bucket: string
   region: string
-  endpoint: string
 }
 
 interface UploadOptions {
@@ -52,24 +52,22 @@ class S3Wrapper {
       file = fs.createReadStream(file)
     }
 
-    try {
-      this.s3
-        .putObject({
-          Bucket: this.config.bucket,
-          Key: options.key,
-          Body: file,
-        })
-
-      if (this.config.mode === 'public') {
-        return {
-          url: `https://${this.config.bucket}.${this.config.endpoint}/${key}`,
+    return this.s3
+      .putObject({
+        Bucket: this.config.bucket,
+        Key: options.key,
+        Body: file,
+      })
+      .promise()
+      .then(() => {
+        if (this.config.mode === 'public') {
+          return {
+            url: `https://${this.config.bucket}.${this.config.endpoint}/${key}`,
+          }
+        } else {
+          return { key: key }
         }
-      } else {
-        return { key: key }
-      }
-    } catch (e) {
-      throw new Error(`Could not upload file to S3: ${e.message}`)
-    }
+      })
   }
 
   async upload(filePath: string, options: UploadOptions): Promise<any> {
@@ -86,17 +84,22 @@ class S3Wrapper {
   async remove(key: string): Promise<any> {
     const decodedKey = decodeURIComponent(trimKey(key))
 
-    this.s3
+    return this.s3
       .headObject({
         Bucket: this.config.bucket,
         Key: decodedKey,
       })
       .promise()
       .then(() => {
-        this.s3.deleteObject({
-          Bucket: this.config.bucket,
-          Key: decodedKey,
-        })
+        this.s3
+          .deleteObject({
+            Bucket: this.config.bucket,
+            Key: decodedKey,
+          })
+          .promise()
+          .then(data => {
+            return
+          })
       })
       .catch(e => {
         if (e.statusCode === 404) {
@@ -118,20 +121,28 @@ class S3Wrapper {
       fs.mkdirSync(folderPath)
     }
 
-    this.s3
+    return this.s3
       .headObject({
         Bucket: this.config.bucket,
         Key: decodedKey,
       })
       .promise()
       .then(() => {
-        this.s3
+        return this.s3
           .getObject({
             Bucket: this.config.bucket,
             Key: decodedKey,
           })
           .createReadStream()
-          .pipe(fs.createWriteStream(savePath))
+      })
+      .then(stream => {
+        return new Promise((resolve, reject) => {
+          stream
+            .on('end', () => {
+              resolve()
+            })
+            .pipe(fs.createWriteStream(savePath))
+        })
       })
       .catch(e => {
         if (e.statusCode === 404) {
@@ -147,30 +158,26 @@ class S3Wrapper {
   ): Promise<any> {
     const decodedKey = decodeURIComponent(trimKey(key))
 
-    return new Promise((resolve, reject) => {
-      this.s3
-        .headObject({
-          Bucket: this.config.bucket,
-          Key: decodedKey,
-        })
-        .promise()
-        .then(() => {
-          resolve(
-            this.s3
-              .getObject({
-                Bucket: this.config.bucket,
-                Key: decodedKey,
-              })
-              .createReadStream(),
-          )
-        })
-        .catch(e => {
-          if (e.statusCode === 404) {
-            e.message = 'File Not Found'
-          }
-          throw new Error(`Could not retrieve file from S3: ${e.message}`)
-        })
-    })
+    return this.s3
+      .headObject({
+        Bucket: this.config.bucket,
+        Key: decodedKey,
+      })
+      .promise()
+      .then(() => {
+        return this.s3
+          .getObject({
+            Bucket: this.config.bucket,
+            Key: decodedKey,
+          })
+          .createReadStream()
+      })
+      .catch(e => {
+        if (e.statusCode === 404) {
+          e.message = 'File Not Found'
+        }
+        throw new Error(`Could not retrieve file from S3: ${e.message}`)
+      })
   }
 }
 
