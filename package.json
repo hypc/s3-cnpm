@@ -1,0 +1,34 @@
+{
+  "name": "s3-cnpm",
+  "version": "1.0.0",
+  "description": "s3 wrapper for cnpm",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyunrealshadow/s3-cnpm.git"
+  },
+  "keywords": [
+    "s3",
+    "storage",
+    "cnpm"
+  ],
+  "author": "UnrealShadow <unrealshadow@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hyunrealshadow/s3-cnpm/issues"
+  },
+  "homepage": "https://github.com/hyunrealshadow/s3-cnpm#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "prettier": "^1.15.3",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.384.0"
+  }
+}
