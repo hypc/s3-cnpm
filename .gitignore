@@ -1,5 +1,7 @@
 .idea
 node_modules
+coverage
 lib
+.env
 yarn.lock
 package-lock.json
