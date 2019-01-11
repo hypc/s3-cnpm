@@ -3,6 +3,8 @@ import * as path from 'path'
 import { create } from '../src'
 import { publicConfig, privateConfig } from '../config'
 
+jest.setTimeout(30000)
+
 describe('test/index.test.ts', () => {
   [
     {
