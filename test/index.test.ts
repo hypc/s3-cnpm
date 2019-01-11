@@ -4,7 +4,7 @@ import { create } from '../src'
 import { publicConfig, privateConfig } from '../config'
 
 describe('test/index.test.ts', () => {
-  ;[
+  [
     {
       name: 'public mode s3 client',
       nfs: create(publicConfig),
@@ -22,7 +22,7 @@ describe('test/index.test.ts', () => {
 
       it('should upload file', async () => {
         const result = await nfs.upload(__filename, {
-          key: key,
+          key,
           size: fs.statSync(__filename).size,
         })
 
@@ -31,13 +31,11 @@ describe('test/index.test.ts', () => {
         } else {
           expect(typeof result.key).toEqual('string')
         }
-
-        await nfs.remove(key)
       })
 
       it('should upload file Buffer', async () => {
         const result = await nfs.uploadBuffer(fs.createReadStream(__filename), {
-          key: key,
+          key,
           size: fs.statSync(__filename).size,
         })
 
@@ -46,26 +44,30 @@ describe('test/index.test.ts', () => {
         } else {
           expect(typeof result.key).toEqual('string')
         }
-
-        await nfs.remove(key)
       })
 
       it('should download file', async () => {
         await nfs.upload(__filename, {
-          key: key,
+          key,
           size: fs.statSync(__filename).size,
         })
 
-        const tempFile = path.join(__dirname, '.temp-file.ts')
-        await nfs.download(key, tempFile, { timeout: 6000 })
-        expect(fs.readFileSync(tempFile, 'utf8')).toEqual(
+        const tempFilePath = path.join(__dirname, '.temp-file.ts')
+        await nfs.download(key, tempFilePath, { timeout: 6000 })
+        expect(fs.readFileSync(tempFilePath, 'utf8')).toEqual(
           fs.readFileSync(__filename, 'utf8'),
         )
-        fs.unlinkSync(tempFile)
+        fs.unlinkSync(tempFilePath)
 
-        await nfs.remove(key)
+        const notExistPath = path.join(__dirname, 'not-exist', '.temp-file.ts')
+        await nfs.download(key, notExistPath, { timeout: 6000 })
+        expect(fs.readFileSync(notExistPath, 'utf8')).toEqual(
+          fs.readFileSync(__filename, 'utf8'),
+        )
+        fs.unlinkSync(notExistPath)
+        fs.rmdirSync(path.join(__dirname, '/not-exist'))
 
-        nfs.download(key, tempFile, { timeout: 6000 }).catch(e => {
+        nfs.download('not-exist', tempFilePath, { timeout: 6000 }).catch(e => {
           expect(e.message).toEqual(
             'Could not retrieve file from S3: File Not Found',
           )
