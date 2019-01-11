@@ -55,7 +55,7 @@ class S3Wrapper {
     return this.s3
       .putObject({
         Bucket: this.config.bucket,
-        Key: options.key,
+        Key: key,
         Body: file,
       })
       .promise()
@@ -65,7 +65,7 @@ class S3Wrapper {
             url: `https://${this.config.bucket}.${this.config.endpoint}/${key}`,
           }
         } else {
-          return { key: key }
+          return { key }
         }
       })
   }
@@ -137,11 +137,11 @@ class S3Wrapper {
       })
       .then(stream => {
         return new Promise((resolve, reject) => {
-          stream
-            .on('end', () => {
+          stream.pipe(
+            fs.createWriteStream(savePath).on('close', () => {
               resolve()
-            })
-            .pipe(fs.createWriteStream(savePath))
+            }),
+          )
         })
       })
       .catch(e => {
