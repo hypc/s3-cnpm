@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": ["tslint:latest", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
     "quotemark": [true, "single", "avoid-escape"],
@@ -12,7 +12,7 @@
         "named-imports-order": "any"
       }
     ],
-    "semicolon":[true, "never", "ignore-interfaces"],
+    "semicolon": [true, "never", "ignore-interfaces"],
     "arrow-parens": false,
     "member-access": false,
     "ban-types": false,
