@@ -1,5 +1,41 @@
-cos-cnpm
+# s3-cnpm
 
-使用时发生了错误，于是我重写了一个
+[![Build Status](https://img.shields.io/travis/com/hyunrealshadow/s3-cnpm.svg?style=flat-square)](https://travis-ci.com/hyunrealshadow/s3-cnpm)
+[![codecov](https://img.shields.io/codecov/c/gh/hyunrealshadow/s3-cnpm.svg?style=flat-square)](https://codecov.io/gh/hyunrealshadow/s3-cnpm)
 
-基本功能已经完成，文档及单元测试待补充
+s3 wraper for [cnpmjs.org NFS](https://github.com/cnpm/cnpmjs.org/wiki/NFS-Guide)
+
+It can support the use of OSS COS S3
+
+**This package has not been released yet**
+
+## Usage
+
+```js
+const s3 = require('s3-cnpm')
+
+const client = s3.create({
+  mode: 'public or private'
+  accessKeyId: 'S3 accessKeyId' // COS SecretId or OSS AccessKey ID
+  secretAccessKey: 'S3 secretAccessKey' // COS SecretKey or OSS Access Key Secret
+  endpoint: 'your service endpoint' // e.g. cos.ap-shanghai.myqcloud.com
+  bucket: 'your service bucket name' // e.g. npm
+  region: 'your service region' // e.g. ap-shanghai
+})
+```
+
+## Test
+
+Create an .env file in the project root directory
+
+```ini
+ACCESS_KEY_ID=SOMTHING
+SECRET_ACCESS_KEY=SOMTHING
+ENDPOINT=SOMTHING
+BUCKET=SOMTHING
+REGION=SOMTHING
+```
+
+## Liecnse
+
+[MIT](LICENSE)
