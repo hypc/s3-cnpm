@@ -1,11 +1,13 @@
 # s3-cnpm
 
 [![Build Status](https://img.shields.io/travis/com/hyunrealshadow/s3-cnpm.svg?style=flat-square)](https://travis-ci.com/hyunrealshadow/s3-cnpm)
-[![codecov](https://img.shields.io/codecov/c/gh/hyunrealshadow/s3-cnpm.svg?style=flat-square)](https://codecov.io/gh/hyunrealshadow/s3-cnpm)
+[![codecov](https://img.shields.io/codecov/c/gh/hyunrealshadow/s3-cnpm.svg?style=flat-square&logo=codecov)](https://codecov.io/gh/hyunrealshadow/s3-cnpm)
 
-s3 wraper for [cnpmjs.org NFS](https://github.com/cnpm/cnpmjs.org/wiki/NFS-Guide)
+s3 wrapper for [cnpmjs.org NFS](https://github.com/cnpm/cnpmjs.org/wiki/NFS-Guide)
 
 It can support the use of OSS COS S3
+
+**DO NOT USE THIS PROJECT**
 
 **This package has not been released yet**
 
@@ -29,11 +31,11 @@ const client = s3.create({
 Create an .env file in the project root directory
 
 ```ini
-ACCESS_KEY_ID=SOMTHING
-SECRET_ACCESS_KEY=SOMTHING
-ENDPOINT=SOMTHING
-BUCKET=SOMTHING
-REGION=SOMTHING
+ACCESS_KEY_ID=SOMETHING
+SECRET_ACCESS_KEY=SOMETHING
+ENDPOINT=SOMETHING
+BUCKET=SOMETHING
+REGION=SOMETHING
 ```
 
 ## Liecnse
