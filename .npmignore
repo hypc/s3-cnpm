@@ -4,10 +4,12 @@ config
 src
 test
 .env
-*.ts
+index.ts
 jest.config.js
 tsconfig.json
 tslint.json
 yarn.lock
 .npmignore
+.travis.yml
+.prettierrc
 *.map
