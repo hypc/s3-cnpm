@@ -7,10 +7,6 @@ s3 wrapper for [cnpmjs.org NFS](https://github.com/cnpm/cnpmjs.org/wiki/NFS-Guid
 
 It can support the use of OSS COS S3
 
-**DO NOT USE THIS PROJECT**
-
-**This package has not been released yet**
-
 ## Usage
 
 ```js
