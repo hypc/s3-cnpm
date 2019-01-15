@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/hyunrealshadow/s3-cnpm/compare/1.0.0...1.0.1) (2019-01-15)
+
+
+### Features
+
+* Release 1.0.1 to republish package ([38b0903](https://github.com/hyunrealshadow/s3-cnpm/commit/38b0903))
+
+
+
 # 1.0.0 (2019-01-15)
 
 
