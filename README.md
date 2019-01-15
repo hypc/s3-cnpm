@@ -8,9 +8,12 @@ s3 wrapper for [cnpmjs.org NFS](https://github.com/cnpm/cnpmjs.org/wiki/NFS-Guid
 It can support the use of OSS COS S3
 
 ## Usage
+```bash
+npm install @hyu/s3-cnpm
+```
 
 ```js
-const s3 = require('s3-cnpm')
+const s3 = require('@hyu/s3-cnpm')
 
 const client = s3.create({
   mode: 'public or private'
