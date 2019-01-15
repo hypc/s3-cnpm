@@ -1,8 +1,10 @@
+.idea
 coverage
 config
 src
 test
 .env
+*.ts
 jest.config.js
 tsconfig.json
 tslint.json
