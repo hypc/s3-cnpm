@@ -75,6 +75,50 @@ describe('test/index.test.ts', () => {
           )
         })
       })
+
+      it('should create download stream', async () => {
+        await nfs.upload(__filename, {
+          key,
+          size: fs.statSync(__filename).size,
+        })
+
+        const tempFilePath = path.join(__dirname, '.temp-file.ts')
+        const stream = await nfs.createDownloadStream(key, {
+          timeout: 6000,
+        })
+        const fileStream = fs.createWriteStream(tempFilePath)
+        const close = async () => {
+          return new Promise((resolve, reject) => {
+            fileStream.on('close', resolve)
+          })
+        }
+        stream.pipe(fileStream)
+        await close()
+        expect(fs.readFileSync(tempFilePath, 'utf8')).toEqual(
+          fs.readFileSync(__filename, 'utf8'),
+        )
+        fs.unlinkSync(tempFilePath)
+
+        nfs.createDownloadStream('not-exist', { timeout: 6000 }).catch(e => {
+          expect(e.message).toEqual(
+            'Could not retrieve file from S3: File Not Found',
+          )
+        })
+      })
+
+      it('should remove file', async () => {
+        await nfs.upload(__filename, {
+          key,
+          size: fs.statSync(__filename).size,
+        })
+        await nfs.remove(key)
+
+        nfs.remove('not-exist').catch(e => {
+          expect(e.message).toEqual(
+            'Could not remove file from S3: File Not Found',
+          )
+        })
+      })
     })
   })
 })
