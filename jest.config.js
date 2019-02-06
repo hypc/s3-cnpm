@@ -12,4 +12,5 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   preset: 'ts-jest',
+  collectCoverageFrom: ['src/**/*.ts'],
 }
