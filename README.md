@@ -22,6 +22,7 @@ const client = s3.create({
   endpoint: 'your service endpoint' // e.g. cos.ap-shanghai.myqcloud.com
   bucket: 'your service bucket name' // e.g. npm
   region: 'your service region' // e.g. ap-shanghai
+  s3ForcePathStyle: true
 })
 ```
 
@@ -35,6 +36,7 @@ SECRET_ACCESS_KEY=SOMETHING
 ENDPOINT=SOMETHING
 BUCKET=SOMETHING
 REGION=SOMETHING
+S3_FORCE_PATH_STYLE=true
 ```
 
 ## Liecnse

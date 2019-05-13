@@ -9,7 +9,8 @@ export interface S3Config {
   secretAccessKey: string
   endpoint: string
   bucket: string
-  region: string
+  region?: string
+  s3ForcePathStyle?: boolean
 }
 
 interface UploadOptions {
@@ -39,6 +40,7 @@ class S3Wrapper {
       secretAccessKey: config.secretAccessKey,
       region: config.region,
       endpoint: config.endpoint,
+      s3ForcePathStyle: config.s3ForcePathStyle,
     })
   }
 

@@ -9,6 +9,7 @@ export const publicConfig: S3Config = {
   endpoint: process.env.ENDPOINT,
   bucket: process.env.BUCKET,
   region: process.env.REGION,
+  s3ForcePathStyle: process.env.S3_FORCE_PATH_STYLE === 'true',
 }
 
 export const privateConfig: S3Config = {
@@ -18,4 +19,5 @@ export const privateConfig: S3Config = {
   endpoint: process.env.ENDPOINT,
   bucket: process.env.BUCKET,
   region: process.env.REGION,
+  s3ForcePathStyle: process.env.S3_FORCE_PATH_STYLE === 'true',
 }

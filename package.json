@@ -1,5 +1,5 @@
 {
-  "name": "@hyu/s3-cnpm",
+  "name": "@hypc/s3-cnpm",
   "version": "1.0.1",
   "description": "s3 wrapper for cnpm",
   "main": "index.js",
@@ -23,19 +23,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hyunrealshadow/s3-cnpm.git"
+    "url": "git+https://github.com/hypc/s3-cnpm.git"
   },
   "keywords": [
     "s3",
     "storage",
     "cnpm"
   ],
-  "author": "UnrealShadow <unrealshadow@outlook.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hyunrealshadow/s3-cnpm/issues"
-  },
-  "homepage": "https://github.com/hyunrealshadow/s3-cnpm#readme",
   "devDependencies": {
     "@types/dotenv": "^6.1.0",
     "@types/jest": "^23.3.12",
