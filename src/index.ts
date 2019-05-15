@@ -63,9 +63,10 @@ class S3Wrapper {
       .promise()
       .then(() => {
         if (this.config.mode === 'public') {
-          return {
-            url: `https://${this.config.bucket}.${this.config.endpoint}/${key}`,
-          }
+          const url = this.config.s3ForcePathStyle
+            ? `${this.config.endpoint}/${this.config.bucket}/${key}`
+            : `https://${this.config.bucket}.${this.config.endpoint}/${key}`
+          return { url }
         } else {
           return { key }
         }

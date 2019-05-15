@@ -13,7 +13,7 @@ npm install @hyu/s3-cnpm
 ```
 
 ```js
-const s3 = require('@hyu/s3-cnpm')
+const s3 = require('@hypc/s3-cnpm')
 
 const client = s3.create({
   mode: 'public or private'
@@ -22,7 +22,7 @@ const client = s3.create({
   endpoint: 'your service endpoint' // e.g. cos.ap-shanghai.myqcloud.com
   bucket: 'your service bucket name' // e.g. npm
   region: 'your service region' // e.g. ap-shanghai
-  s3ForcePathStyle: true
+  s3ForcePathStyle: false
 })
 ```
 
@@ -36,7 +36,7 @@ SECRET_ACCESS_KEY=SOMETHING
 ENDPOINT=SOMETHING
 BUCKET=SOMETHING
 REGION=SOMETHING
-S3_FORCE_PATH_STYLE=true
+S3_FORCE_PATH_STYLE=false
 ```
 
 ## Liecnse
